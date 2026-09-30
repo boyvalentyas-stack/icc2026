@@ -14,12 +14,11 @@
 <meta name="twitter:title" content="ICC 2026 — Create. Capture. Connect.">
 <meta name="twitter:description" content="Photography, cosplay and creative collaboration at Indonesia Comic Convention 2026.">
 <meta name="twitter:image" content="assets/og-cover.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2308070c'/%3E%3Ccircle cx='32' cy='32' r='14' fill='none' stroke='%23ff5fa2' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2360e0ff'/%3E%3C/svg%3E"><!-- REPLACE with assets/favicon.png if you like -->
+<link rel="icon" type="image/x-icon" href="icc-favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/x-icon" href="icc-favicon.ico" />
-  
+
 <!-- ============ 1. CONFIGURATION (edit here; also see CONFIG in the script at the bottom) ============ -->
 <!-- Images: replace files listed in CONFIG.images (put them in an /assets folder). -->
 
@@ -210,6 +209,8 @@ footer p{color:var(--mute);font-size:.88rem;margin-top:6px}
 }
 
 /* v2 additions */
+.grid2.solo{grid-template-columns:1fr;max-width:920px;margin-inline:auto}
+@media(min-width:760px){.solo .profile{display:grid;grid-template-columns:.85fr 1.15fr}.solo .profile .ph{aspect-ratio:auto;min-height:100%}.solo .profile .body{align-self:center;padding:40px}.solo .profile h3{font-size:3.2rem}}
 html{font-size:clamp(15px,.35vw + 13.6px,19px)}
 h3,.soc strong{overflow-wrap:anywhere}
 .right{display:flex;gap:8px;align-items:center}
@@ -271,19 +272,12 @@ h3,.soc strong{overflow-wrap:anywhere}
     <div class="wrap">
       <h2 class="rv" data-i="creatorsH"></h2>
       <p class="sub rv" data-i="creatorsP"></p>
-      <div class="grid2">
+      <div class="grid2 solo">
         <article class="card profile rv">
           <div class="ph"><img id="img1" width="800" height="1000" loading="lazy" alt=""></div>
           <div class="body">
             <h3 id="n1"></h3><p class="role" data-i="role1"></p><p data-i="desc1"></p>
             <div class="btns"><a class="btn primary sm" id="ig1" target="_blank" rel="noopener">Instagram</a><a class="btn wa sm" id="wa1" target="_blank" rel="noopener">WhatsApp</a></div>
-          </div>
-        </article>
-        <article class="card profile rv">
-          <div class="ph"><img id="img2" width="800" height="1000" loading="lazy" alt=""></div>
-          <div class="body">
-            <h3 id="n2"></h3><p class="role" data-i="role2"></p><p data-i="desc2"></p>
-            <div class="btns"><a class="btn primary sm" id="ig2" target="_blank" rel="noopener">Instagram</a><a class="btn wa sm" id="wa2" target="_blank" rel="noopener">WhatsApp</a></div>
           </div>
         </article>
       </div>
@@ -392,7 +386,6 @@ h3,.soc strong{overflow-wrap:anywhere}
 const CONFIG = {
   websiteUrl: "[WEBSITE_URL]",   // the URL your QR code points to
   photographer1: { name: "Rillianto Kosuwandi", handle: "@rkosuwandi", instagram: "https://www.instagram.com/rkosuwandi/", whatsapp: "6287887895988" },
-  photographer2: { name: "Boy Valentyas", handle: "@aceblanc.toujo", instagram: "https://www.instagram.com/aceblanc.toujo/", whatsapp: "6289636306541" },
   organizer: { name: "Indonesia Comic Convention", handle: "@indocomiccon", instagram: "https://www.instagram.com/indocomiccon/",
     tags: [["#ICC2026", "icc2026"], ["#ADecadeOfPopCulture", "adecadeofpopculture"]] },
   giveawayUrl: "[GOOGLE_FORM_URL]",
@@ -401,7 +394,7 @@ const CONFIG = {
   venue: "JIEXPO Kemayoran — Hall & EXPO Arena, 1st Floor",
   venueUrl: "https://maps.app.goo.gl/f9ahday8wLkpSYHP7",
   extras: { tiktok: "", youtube: "", threads: "" },   // shown only when filled
-  images: { hero: "", photographer1: "assets/photographer1.jpg", photographer2: "assets/boy.jpg" }
+  images: { hero: "", photographer1: "assets/photographer1.jpg" }
 };
 
 /* ---- All visible text, EN + ID ---- */
@@ -410,16 +403,16 @@ en: {
  skip:"Skip to content", nCreators:"Creators", nPhoto:"Photos", nGive:"Giveaway", nConn:"Connect", nCollab:"Collab", nInfo:"Event",
  rec:"Photo activation live", heroDesc:"Photography, cosplay, creativity and new connections.", heroDate:"03 OCTOBER 2026",
  heroGuest:"Guest photographer on Day 1 only (3 Oct)", ctaPhoto:"📸 GET YOUR PHOTO", ctaGive:"🎁 JOIN THE GIVEAWAY", barGive:"🎁 GIVEAWAY",
- creatorsH:"Meet the creators", creatorsP:"The people behind the camera.",
- role1:"Guest Photographer — ICC 2026, 3rd Oct only", role2:"Photographer / Creative",
- desc1:"Capturing the characters, costumes and energy of ICC 2026 one frame at a time.", desc2:"Turning convention moments into portraits worth keeping and sharing.",
+ creatorsH:"Meet the guest photographer", creatorsP:"The person behind the camera.",
+ role1:"Guest Photographer — ICC 2026, 3rd Oct only",
+ desc1:"Capturing the characters, costumes and energy of ICC 2026 one frame at a time.",
  whyA:"We're here to capture your ", whyB:"ICC moments.",
  whyP:"If you see us around ICC 2026, come say hi. Whether you're a cosplayer, creator, model, photographer, or simply here to enjoy the event — let's create something memorable.",
  f1:"Get photographed", f2:"Join the giveaway", f3:"Let's collaborate",
  photoH:"Did we photograph you?", photoP:"Your ICC 2026 photos may be coming soon.", photoBtn:"📸 FIND MY PHOTO", photoNote:"Photo gallery will be updated after the event.",
  giveH:"🎁 ICC 2026 Giveaway", giveQ:"Want to win something from us?", giveP:"Join our giveaway for a chance to win a special prize from us.",
- s1:"Follow", s1d:"Follow both Instagram accounts.", s2:"Register", s2d:"Complete the giveaway form.",
- s3:"Share", s3d:"Share your ICC 2026 experience on Instagram Story and tag us and @indocomiccon.",
+ s1:"Follow", s1d:"Follow @rkosuwandi and @indocomiccon on Instagram.", s2:"Register", s2d:"Complete the giveaway form.",
+ s3:"Share", s3d:"Share your ICC 2026 experience on Instagram Story and tag @rkosuwandi and @indocomiccon.",
  giveBtn:"JOIN THE GIVEAWAY", giveNote:"Giveaway terms may apply.",
  connH:"Let's connect", connP:"Follow our work and stay connected after ICC.",
  collabH:"Let's create something together.", collabP:"We're open to connecting with cosplayers, models, content creators, photographers, artists and brands for future creative projects.",
@@ -428,22 +421,22 @@ en: {
  mapBtn:"Open venue map", copyBtn:"Copy page link", copied:"Link copied!", unset:"This link hasn't been set yet.",
  hostL:"Proudly at", hostP:"Thank you to the organizer for giving us the space to create.", hostBtn:"Follow @indocomiccon",
  made:"Made for ICC 2026", metaDesc:"Photography, cosplay and creative collaboration at Indonesia Comic Convention 2026.",
- wa1:"Hey! I visited your booth at ICC 2026 and I'd love to connect.", wa2:"Hi! Let's connect."
+ wa1:"Hey! I visited your booth at ICC 2026 and I'd love to connect."
 },
 id: {
  skip:"Lewati ke konten", nCreators:"Kreator", nPhoto:"Foto", nGive:"Giveaway", nConn:"Terhubung", nCollab:"Kolaborasi", nInfo:"Acara",
  rec:"Aktivasi foto sedang berlangsung", heroDesc:"Fotografi, cosplay, kreativitas, dan koneksi baru.", heroDate:"03 OKTOBER 2026",
  heroGuest:"Fotografer tamu hanya di hari pertama (3 Okt)", ctaPhoto:"📸 AMBIL FOTOMU", ctaGive:"🎁 IKUTAN GIVEAWAY", barGive:"🎁 GIVEAWAY",
- creatorsH:"Kenali kreatornya", creatorsP:"Orang-orang di balik kamera.",
- role1:"Fotografer Tamu — ICC 2026, hanya 3 Okt", role2:"Fotografer / Kreatif",
- desc1:"Mengabadikan karakter, kostum, dan energi ICC 2026 satu frame demi satu frame.", desc2:"Mengubah momen convention jadi potret yang layak disimpan dan dibagikan.",
+ creatorsH:"Kenali fotografer tamunya", creatorsP:"Orang di balik kamera.",
+ role1:"Fotografer Tamu — ICC 2026, hanya 3 Okt",
+ desc1:"Mengabadikan karakter, kostum, dan energi ICC 2026 satu frame demi satu frame.",
  whyA:"Kami hadir untuk mengabadikan ", whyB:"momen ICC-mu.",
  whyP:"Kalau ketemu kami di ICC 2026, sapa aja ya. Entah kamu cosplayer, kreator, model, fotografer, atau cuma mau menikmati acaranya — yuk bikin sesuatu yang berkesan.",
  f1:"Difoto kami", f2:"Ikut giveaway", f3:"Yuk kolaborasi",
  photoH:"Sudah kami foto?", photoP:"Foto ICC 2026-mu mungkin segera hadir.", photoBtn:"📸 CARI FOTOKU", photoNote:"Galeri foto akan diperbarui setelah acara.",
  giveH:"🎁 Giveaway ICC 2026", giveQ:"Mau menang hadiah dari kami?", giveP:"Ikuti giveaway kami untuk berkesempatan memenangkan hadiah spesial dari kami.",
- s1:"Follow", s1d:"Follow kedua akun Instagram kami.", s2:"Daftar", s2d:"Isi formulir giveaway.",
- s3:"Bagikan", s3d:"Bagikan pengalaman ICC 2026-mu di Instagram Story dan tag kami serta @indocomiccon.",
+ s1:"Follow", s1d:"Follow @rkosuwandi dan @indocomiccon di Instagram.", s2:"Daftar", s2d:"Isi formulir giveaway.",
+ s3:"Bagikan", s3d:"Bagikan pengalaman ICC 2026-mu di Instagram Story dan tag @rkosuwandi dan @indocomiccon.",
  giveBtn:"IKUTAN GIVEAWAY", giveNote:"Syarat dan ketentuan giveaway berlaku.",
  connH:"Yuk terhubung", connP:"Ikuti karya kami dan tetap terhubung setelah ICC.",
  collabH:"Yuk berkarya bersama.", collabP:"Kami terbuka untuk terhubung dengan cosplayer, model, content creator, fotografer, seniman, dan brand untuk proyek kreatif ke depan.",
@@ -452,7 +445,7 @@ id: {
  mapBtn:"Buka peta venue", copyBtn:"Salin link halaman", copied:"Link disalin!", unset:"Link ini belum diatur.",
  hostL:"Hadir di", hostP:"Terima kasih kepada penyelenggara atas ruang untuk berkarya.", hostBtn:"Ikuti @indocomiccon",
  made:"Dibuat untuk ICC 2026", metaDesc:"Fotografi, cosplay, dan kolaborasi kreatif di Indonesia Comic Convention 2026.",
- wa1:"Hai! Aku habis mampir ke booth kamu di ICC 2026 dan pengen kenalan.", wa2:"Hai! Yuk kenalan."
+ wa1:"Hai! Aku habis mampir ke booth kamu di ICC 2026 dan pengen kenalan."
 }};
 
 const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#2a1a44'/><stop offset='1' stop-color='#0f2a36'/></linearGradient></defs><rect width='800' height='1000' fill='url(#g)'/><circle cx='400' cy='400' r='120' fill='none' stroke='#ff5fa2' stroke-width='10'/><circle cx='400' cy='400' r='34' fill='#60e0ff'/><text x='400' y='700' fill='#a9a4b5' font-family='sans-serif' font-size='34' text-anchor='middle'>PHOTO PLACEHOLDER</text></svg>");
@@ -467,28 +460,27 @@ function setLink(el, url) {
 }
 
 function apply() {
-  const C = CONFIG, p1 = C.photographer1, p2 = C.photographer2, org = C.organizer;
+  const C = CONFIG, p1 = C.photographer1, org = C.organizer;
   document.documentElement.lang = lang;
   $('meta[name=description]').content = t("metaDesc");
   $$("[data-i]").forEach(el => el.textContent = t(el.dataset.i));
   $$("[data-l]").forEach(el => el.classList.toggle("on", el.dataset.l === lang));
-  $("#duo").textContent = `${p1.name} × ${p2.name}`;
-  $("#n1").textContent = p1.name; $("#n2").textContent = p2.name;
-  $("#img1").alt = p1.name; $("#img2").alt = p2.name;
+  $("#duo").textContent = p1.name;
+  $("#n1").textContent = p1.name;
+  $("#img1").alt = p1.name;
   $("#venue").textContent = C.venue;
-  $("#copy").textContent = `© 2026 ${p1.name} × ${p2.name}`;
+  $("#copy").textContent = `© 2026 ${p1.name}`;
   const wa = (p, k) => `https://wa.me/${p.whatsapp}?text=${encodeURIComponent(t(k))}`;
-  setLink($("#ig1"), p1.instagram); setLink($("#ig2"), p2.instagram);
-  setLink($("#wa1"), wa(p1, "wa1")); setLink($("#wa2"), wa(p2, "wa2"));
+  setLink($("#ig1"), p1.instagram);
+  setLink($("#wa1"), wa(p1, "wa1"));
   $$("[data-link]").forEach(el => setLink(el, C[el.dataset.link]));
 
   const cards = [
-    ["Instagram", p1.name, p1.instagram, "ig"], ["Instagram", p2.name, p2.instagram, "ig"],
-    ["WhatsApp", p1.name, wa(p1, "wa1"), "wa"], ["WhatsApp", p2.name, wa(p2, "wa2"), "wa"],
+    ["Instagram", p1.handle, p1.instagram, "ig"], ["WhatsApp", p1.name, wa(p1, "wa1"), "wa"],
     ...Object.entries(C.extras).filter(([, u]) => u).map(([k, u]) => [k[0].toUpperCase() + k.slice(1), "", u, "pf"])
   ];
   $("#socialGrid").innerHTML = cards.map(c => `<a class="card soc ${c[3]} rv in" href="${c[2]}" target="_blank" rel="noopener"><div><small>${c[0]}</small><strong>${c[1]}</strong></div><span class="go" aria-hidden="true">↗</span></a>`).join("");
-  $("#footLinks").innerHTML = [[p1.instagram, "Instagram · " + p1.name], [p2.instagram, "Instagram · " + p2.name], [org.instagram, "Instagram · " + org.handle]]
+  $("#footLinks").innerHTML = [[p1.instagram, "Instagram · " + p1.handle], [org.instagram, "Instagram · " + org.handle]]
     .map(l => `<a class="btn sm" href="${l[0]}" target="_blank" rel="noopener">${l[1]}</a>`).join("");
   $("#hostBtns").innerHTML = `<a class="btn primary sm" href="${org.instagram}" target="_blank" rel="noopener">${t("hostBtn")}</a>` +
     org.tags.map(([label, slug]) => `<a class="btn sm" href="https://www.instagram.com/explore/tags/${slug}/" target="_blank" rel="noopener">${label}</a>`).join("");
@@ -504,7 +496,7 @@ if (!TEXT[lang]) lang = (navigator.language || "en").toLowerCase().startsWith("i
 $("#langBtn").addEventListener("click", () => setLang(lang === "en" ? "id" : "en"));
 
 /* Images */
-[["#img1", CONFIG.images.photographer1], ["#img2", CONFIG.images.photographer2]].forEach(([id, src]) => {
+[["#img1", CONFIG.images.photographer1]].forEach(([id, src]) => {
   const img = $(id); img.onerror = () => { img.onerror = null; img.src = PLACEHOLDER; }; img.src = src || PLACEHOLDER;
 });
 $("#heroBg").style.backgroundImage = CONFIG.images.hero ? `url("${CONFIG.images.hero}")`
