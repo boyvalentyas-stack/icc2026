@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ICC 2026 — Create. Capture. Connect.</title>
+<meta name="description" content="Photography, cosplay and creative collaboration at Indonesia Comic Convention 2026.">
+<meta name="theme-color" content="#08070c">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ICC 2026 — Create. Capture. Connect.">
+<meta property="og:description" content="Photography, cosplay and creative collaboration at Indonesia Comic Convention 2026.">
+<meta property="og:image" content="assets/og-cover.jpg"><!-- REPLACE: use a full https URL once hosted -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ICC 2026 — Create. Capture. Connect.">
+<meta name="twitter:description" content="Photography, cosplay and creative collaboration at Indonesia Comic Convention 2026.">
+<meta name="twitter:image" content="assets/og-cover.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2308070c'/%3E%3Ccircle cx='32' cy='32' r='14' fill='none' stroke='%23ff5fa2' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%2360e0ff'/%3E%3C/svg%3E"><!-- REPLACE with assets/favicon.png if you like -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- ============ 1. CONFIGURATION (edit here; also see CONFIG in the script at the bottom) ============ -->
+<!-- Images: replace files listed in CONFIG.images (put them in an /assets folder). -->
+
+<style>
+/* ============ 3. CSS ============ */
+:root{
+  --bg:#08070c; --bg2:#100e18; --ink:#f5f2ee; --mute:#a9a4b5;
+  --pink:#ff5fa2; --violet:#8b6cff; --cyan:#60e0ff;
+  --line:rgba(255,255,255,.12); --glass:rgba(255,255,255,.055);
+  --r:22px; --nav:64px; --bar:0px;
+  --display:'Big Shoulders Display','Impact','Arial Narrow',sans-serif;
+  --body:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav) + 8px);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--body);overflow-x:hidden;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:8px}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+section{padding:72px 0;position:relative}
+h1,h2,h3{font-family:var(--display);font-weight:900;line-height:.92;letter-spacing:.005em;text-transform:uppercase}
+h2{font-size:clamp(2.6rem,9vw,5rem)}
+.sub{color:var(--mute);max-width:52ch;margin-top:14px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#000;padding:10px 14px;border-radius:10px;z-index:200}
+.skip:focus{left:8px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:999px;font-weight:700;letter-spacing:.02em;border:1px solid var(--line);background:var(--glass);color:var(--ink);cursor:pointer;font-family:inherit;font-size:1rem;transition:transform .2s,box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.1)}
+.btn:active{transform:scale(.97)}
+.btn.primary{border:0;color:#12060d;background:linear-gradient(100deg,var(--pink),#ff8fc0 55%,#c9b3ff)}
+.btn.primary:hover{box-shadow:0 10px 34px -6px rgba(255,95,162,.6);background:linear-gradient(100deg,var(--pink),#ff8fc0 55%,#c9b3ff)}
+.btn.cyan{border:0;color:#03151a;background:linear-gradient(100deg,var(--cyan),#a8c8ff)}
+.btn.cyan:hover{box-shadow:0 10px 34px -6px rgba(96,224,255,.5);background:linear-gradient(100deg,var(--cyan),#a8c8ff)}
+.btn.sm{min-height:46px;padding:0 18px;font-size:.92rem}
+
+/* top nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:80;height:var(--nav);padding-top:env(safe-area-inset-top);background:rgba(8,7,12,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:100%}
+.logo{font-family:var(--display);font-weight:900;font-size:1.5rem;letter-spacing:.04em}
+.logo b{color:var(--pink)}
+.menu-btn{width:48px;height:48px;border-radius:14px;border:1px solid var(--line);background:var(--glass);color:var(--ink);cursor:pointer;display:grid;place-content:center;gap:5px}
+.menu-btn span{display:block;width:20px;height:2px;background:currentColor;transition:transform .25s,opacity .2s}
+.menu-btn[aria-expanded=true] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-btn[aria-expanded=true] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded=true] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.links{position:fixed;inset:var(--nav) 0 auto 0;background:rgba(8,7,12,.96);backdrop-filter:blur(18px);padding:12px 20px 24px;display:none;flex-direction:column;border-bottom:1px solid var(--line)}
+.links.open{display:flex}
+.links a{padding:16px 4px;font-family:var(--display);font-weight:700;font-size:1.7rem;text-transform:uppercase;border-bottom:1px solid var(--line);color:var(--mute)}
+.links a.active{color:var(--ink)}
+.links a.active::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pink);margin-right:12px}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:flex-end;padding:calc(var(--nav) + 40px) 0 56px;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:var(--bg) center/cover no-repeat}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,7,12,.55) 0%,rgba(8,7,12,.2) 35%,var(--bg) 96%)}
+.orb{position:absolute;z-index:-1;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 16s ease-in-out infinite alternate}
+.orb.a{width:340px;height:340px;background:var(--violet);top:8%;left:-90px}
+.orb.b{width:300px;height:300px;background:var(--pink);top:32%;right:-110px;animation-delay:-6s;opacity:.38}
+.orb.c{width:220px;height:220px;background:var(--cyan);bottom:12%;left:32%;animation-delay:-11s;opacity:.22}
+@keyframes drift{to{transform:translate3d(40px,-36px,0) scale(1.15)}}
+.viewfinder{position:absolute;inset:calc(var(--nav) + 18px) 18px 22px;z-index:-1;pointer-events:none;
+  --c:rgba(255,255,255,.55);
+  background:
+   linear-gradient(var(--c),var(--c)) top left/22px 2px no-repeat,linear-gradient(var(--c),var(--c)) top left/2px 22px no-repeat,
+   linear-gradient(var(--c),var(--c)) top right/22px 2px no-repeat,linear-gradient(var(--c),var(--c)) top right/2px 22px no-repeat,
+   linear-gradient(var(--c),var(--c)) bottom left/22px 2px no-repeat,linear-gradient(var(--c),var(--c)) bottom left/2px 22px no-repeat,
+   linear-gradient(var(--c),var(--c)) bottom right/22px 2px no-repeat,linear-gradient(var(--c),var(--c)) bottom right/2px 22px no-repeat}
+.rec{display:inline-flex;align-items:center;gap:10px;font-size:.85rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--glass);backdrop-filter:blur(8px)}
+.rec i{width:9px;height:9px;border-radius:50%;background:#ff3b5c;animation:blink 1.6s steps(2,jump-none) infinite}
+@keyframes blink{50%{opacity:.15}}
+.hero h1{margin-top:22px;font-size:clamp(4.4rem,22vw,11.5rem);line-height:.84}
+.hero h1 span{display:block}
+.hero h1 .o{color:transparent;-webkit-text-stroke:2px var(--ink)}
+.hero .event{margin-top:22px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.9rem;color:var(--mute)}
+.hero .desc{font-size:1.2rem;margin-top:8px;max-width:34ch}
+.date{display:inline-block;margin-top:18px;font-family:var(--display);font-weight:900;font-size:2rem;letter-spacing:.06em;color:var(--cyan)}
+.cta-row{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+
+/* creators */
+.grid2{display:grid;gap:20px;margin-top:36px}
+.card{position:relative;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(180deg,var(--glass),rgba(255,255,255,.02));overflow:hidden;transition:transform .3s,border-color .3s}
+.card:hover{transform:translateY(-4px);border-color:rgba(255,95,162,.5)}
+.profile .ph{aspect-ratio:4/5;background:var(--bg2);overflow:hidden}
+.profile .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.profile:hover .ph img{transform:scale(1.04)}
+.profile .body{padding:22px}
+.profile h3{font-size:2.3rem}
+.role{color:var(--pink);font-weight:600;margin-top:6px}
+.profile p{color:var(--mute);margin-top:10px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+
+/* why */
+.why{background:linear-gradient(180deg,transparent,var(--bg2) 20%,var(--bg2) 80%,transparent)}
+.why h2 em{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--ink)}
+.feats{display:grid;gap:14px;margin-top:34px}
+.feat{display:flex;align-items:center;gap:16px;padding:20px;font-family:var(--display);font-weight:700;font-size:1.5rem;text-transform:uppercase;letter-spacing:.03em}
+.feat .ic{font-size:1.8rem;width:56px;height:56px;border-radius:16px;display:grid;place-content:center;background:rgba(255,255,255,.07);flex:none}
+
+/* photo */
+.photo-card{padding:44px 24px;text-align:center;border-radius:30px;background:radial-gradient(120% 90% at 50% 0%,rgba(139,108,255,.35),transparent 60%),radial-gradient(90% 80% at 100% 100%,rgba(96,224,255,.2),transparent 60%),var(--bg2);border:1px solid var(--line);overflow:hidden;position:relative}
+.photo-card h2{font-size:clamp(3rem,13vw,6.5rem)}
+.photo-card .btn{margin-top:26px;width:100%;max-width:360px}
+.note{color:var(--mute);font-size:.88rem;margin-top:16px}
+.frames{display:flex;justify-content:center;gap:10px;margin-bottom:26px}
+.frames i{width:46px;height:60px;border-radius:8px;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.05);transform:rotate(var(--t))}
+.frames i:nth-child(1){--t:-8deg}.frames i:nth-child(2){--t:0deg;border-color:var(--pink)}.frames i:nth-child(3){--t:8deg}
+
+/* giveaway */
+.give{padding:32px 22px;border-radius:30px;border:1px solid rgba(255,95,162,.45);background:linear-gradient(140deg,rgba(255,95,162,.16),rgba(139,108,255,.1) 60%,rgba(8,7,12,.4));box-shadow:0 0 80px -30px var(--pink)}
+.prize{display:inline-block;margin-top:18px;padding:10px 16px;border-radius:14px;border:1px dashed var(--pink);font-weight:600}
+.steps{list-style:none;padding:0;display:grid;gap:12px;margin:28px 0}
+.steps li{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:center;padding:16px;border-radius:18px;background:rgba(8,7,12,.5);border:1px solid var(--line)}
+.steps .n{grid-row:span 2;font-family:var(--display);font-weight:900;font-size:2.8rem;color:var(--pink);line-height:1}
+.steps b{font-family:var(--display);font-size:1.4rem;text-transform:uppercase;letter-spacing:.04em}
+.steps span.d{color:var(--mute);font-size:.95rem}
+
+/* social */
+.social{display:grid;gap:14px;margin-top:34px}
+.soc{display:flex;flex-direction:column;justify-content:space-between;min-height:132px;padding:22px}
+.soc small{color:var(--mute);font-weight:600}
+.soc strong{font-family:var(--display);font-size:1.9rem;text-transform:uppercase;line-height:1;margin-top:6px;display:block}
+.soc .go{align-self:flex-end;font-size:1.4rem;transition:transform .25s}
+.soc:hover .go{transform:translate(4px,-4px)}
+.soc.ig:hover{border-color:var(--pink)}.soc.pf:hover{border-color:var(--cyan)}
+
+/* collab */
+.collab{padding:38px 24px;border-radius:30px;background:var(--bg2);border:1px solid var(--line);position:relative;overflow:hidden}
+.collab::before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:var(--cyan);filter:blur(90px);opacity:.15;right:-80px;top:-80px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 26px}
+.tags span{padding:8px 14px;border:1px solid var(--line);border-radius:999px;font-weight:600;font-size:.82rem;letter-spacing:.1em;background:var(--glass)}
+
+/* event */
+.event-card{padding:28px;display:grid;gap:8px}
+.event-card .big{font-family:var(--display);font-weight:900;font-size:4rem;line-height:.9}
+.event-card .d{color:var(--cyan);font-family:var(--display);font-weight:700;font-size:1.5rem;letter-spacing:.06em}
+.event-card .v{color:var(--mute)}
+.event-card .btns{margin-top:10px}
+
+/* footer */
+footer{padding:56px 0 24px;text-align:center;border-top:1px solid var(--line)}
+footer .tag{font-family:var(--display);font-weight:900;font-size:clamp(2.2rem,9vw,3.6rem);line-height:.95}
+footer .fl{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:24px 0}
+footer p{color:var(--mute);font-size:.88rem;margin-top:6px}
+
+/* sticky bottom bar (mobile) */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:85;display:grid;grid-template-columns:1.25fr 1fr;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(8,7,12,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+.bar .btn{min-height:52px;padding:0 10px;font-size:.95rem}
+
+.toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;z-index:120;background:var(--ink);color:#000;padding:12px 18px;border-radius:14px;font-weight:600;font-size:.92rem;transition:.3s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+/* tablet / desktop */
+@media(min-width:760px){
+  section{padding:104px 0}
+  .cta-row{flex-direction:row}
+  .grid2{grid-template-columns:1fr 1fr;gap:28px}
+  .feats{grid-template-columns:repeat(3,1fr)}
+  .feat{flex-direction:column;align-items:flex-start;min-height:180px;justify-content:space-between}
+  .steps{grid-template-columns:repeat(3,1fr)}
+  .steps li{grid-template-columns:1fr}.steps .n{grid-row:auto}
+  .social{grid-template-columns:repeat(2,1fr)}
+  .give,.collab{padding:56px}
+  .photo-card{padding:76px 40px}
+}
+@media(min-width:1000px){
+  body{padding-bottom:0}
+  .bar{display:none}
+  .toast{bottom:32px}
+  .menu-btn{display:none}
+  .links{position:static;display:flex;flex-direction:row;gap:26px;padding:0;background:none;border:0;backdrop-filter:none}
+  .links a{border:0;padding:8px 0;font-size:1.05rem;font-family:var(--body);font-weight:600;letter-spacing:.06em}
+  .links a.active::before{display:none}
+  .links a.active{color:var(--pink)}
+  .hero{align-items:center}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+}
+
+/* v2 additions */
+html{font-size:clamp(15px,.35vw + 13.6px,19px)}
+h3,.soc strong{overflow-wrap:anywhere}
+.right{display:flex;gap:8px;align-items:center}
+.lang{min-height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--glass);color:var(--mute);font:700 .9rem var(--body);letter-spacing:.06em;cursor:pointer}
+.lang span.on{color:var(--pink)}
+.btn.wa{border:0;color:#04170b;background:linear-gradient(100deg,#4ff08a,#a6f5c4)}
+.btn.wa:hover{box-shadow:0 10px 34px -6px rgba(79,240,138,.5);background:linear-gradient(100deg,#4ff08a,#a6f5c4)}
+.soc.wa:hover{border-color:#4ff08a}
+.guest{display:inline-block;margin-top:10px;padding:6px 12px;border-radius:999px;border:1px solid var(--cyan);color:var(--cyan);font-size:.85rem;font-weight:600}
+.duo{font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,5.5vw,2rem);margin-top:14px;letter-spacing:.03em}
+.host{padding:24px;margin-top:16px;display:grid;gap:8px}
+.host small{color:var(--mute);font-weight:600}
+.host strong{font-family:var(--display);font-size:2rem;text-transform:uppercase;line-height:1}
+.host .v{color:var(--mute)}
+@media(max-width:359px){.btn{padding:0 14px;font-size:.9rem}.bar .btn{font-size:.82rem}.lang{padding:0 10px}}
+@media(min-width:1500px){.wrap{width:min(1320px,100% - 80px)}}
+@media(max-height:520px) and (orientation:landscape){.hero{min-height:auto;padding-top:calc(var(--nav) + 24px)}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i="skip">Skip to content</a>
+
+<!-- ============ 2. HTML ============ -->
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="ICC 2026">ICC<b>/</b>26</a>
+    <nav class="links" id="links" aria-label="Main">
+      <a href="#creators" data-i="nCreators"></a><a href="#photo" data-i="nPhoto"></a><a href="#giveaway" data-i="nGive"></a>
+      <a href="#connect" data-i="nConn"></a><a href="#collab" data-i="nCollab"></a><a href="#info" data-i="nInfo"></a>
+    </nav>
+    <div class="right">
+      <button class="lang" id="langBtn" type="button" aria-label="Switch language / Ganti bahasa"><span data-l="id">ID</span> | <span data-l="en">EN</span></button>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="links" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="hero-bg" id="heroBg" role="img" aria-label="Convention photography backdrop"></div>
+    <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+    <div class="viewfinder" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="rec"><i></i> <span data-i="rec"></span></span>
+      <h1 aria-label="Create. Capture. Connect."><span>Create.</span><span class="o">Capture.</span><span>Connect.</span></h1>
+      <p class="event">Indonesia Comic Convention 2026</p>
+      <p class="desc" data-i="heroDesc"></p>
+      <p class="duo" id="duo"></p>
+      <span class="date" data-i="heroDate"></span><br>
+      <span class="guest" data-i="heroGuest"></span>
+      <div class="cta-row">
+        <a class="btn primary" href="#photo" data-i="ctaPhoto"></a>
+        <a class="btn cyan" href="#giveaway" data-i="ctaGive"></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="creators">
+    <div class="wrap">
+      <h2 class="rv" data-i="creatorsH"></h2>
+      <p class="sub rv" data-i="creatorsP"></p>
+      <div class="grid2">
+        <article class="card profile rv">
+          <div class="ph"><img id="img1" width="800" height="1000" loading="lazy" alt=""></div>
+          <div class="body">
+            <h3 id="n1"></h3><p class="role" data-i="role1"></p><p data-i="desc1"></p>
+            <div class="btns"><a class="btn primary sm" id="ig1" target="_blank" rel="noopener">Instagram</a><a class="btn wa sm" id="wa1" target="_blank" rel="noopener">WhatsApp</a></div>
+          </div>
+        </article>
+        <article class="card profile rv">
+          <div class="ph"><img id="img2" width="800" height="1000" loading="lazy" alt=""></div>
+          <div class="body">
+            <h3 id="n2"></h3><p class="role" data-i="role2"></p><p data-i="desc2"></p>
+            <div class="btns"><a class="btn primary sm" id="ig2" target="_blank" rel="noopener">Instagram</a><a class="btn wa sm" id="wa2" target="_blank" rel="noopener">WhatsApp</a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="why" id="why">
+    <div class="wrap">
+      <h2 class="rv"><span data-i="whyA"></span><em data-i="whyB"></em></h2>
+      <p class="sub rv" data-i="whyP"></p>
+      <div class="feats">
+        <div class="card feat rv"><span class="ic" aria-hidden="true">📸</span><span data-i="f1"></span></div>
+        <div class="card feat rv"><span class="ic" aria-hidden="true">🎁</span><span data-i="f2"></span></div>
+        <div class="card feat rv"><span class="ic" aria-hidden="true">🤝</span><span data-i="f3"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="photo">
+    <div class="wrap">
+      <div class="photo-card rv">
+        <div class="frames" aria-hidden="true"><i></i><i></i><i></i></div>
+        <h2 data-i="photoH"></h2>
+        <p class="sub" style="margin-inline:auto" data-i="photoP"></p>
+        <a class="btn primary" data-link="photoGalleryUrl" target="_blank" rel="noopener" data-i="photoBtn"></a>
+        <p class="note" data-i="photoNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="giveaway">
+    <div class="wrap">
+      <div class="give rv">
+        <h2 data-i="giveH"></h2>
+        <p class="sub" style="font-size:1.25rem;color:var(--ink)" data-i="giveQ"></p>
+        <p class="sub" data-i="giveP"></p>
+        <ol class="steps">
+          <li><span class="n">01</span><b data-i="s1"></b><span class="d" data-i="s1d"></span></li>
+          <li><span class="n">02</span><b data-i="s2"></b><span class="d" data-i="s2d"></span></li>
+          <li><span class="n">03</span><b data-i="s3"></b><span class="d" data-i="s3d"></span></li>
+        </ol>
+        <a class="btn primary" data-link="giveawayUrl" target="_blank" rel="noopener" data-i="giveBtn"></a>
+        <p class="note" data-i="giveNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="connect">
+    <div class="wrap">
+      <h2 class="rv" data-i="connH"></h2>
+      <p class="sub rv" data-i="connP"></p>
+      <div class="social" id="socialGrid"></div>
+    </div>
+  </section>
+
+  <section id="collab">
+    <div class="wrap">
+      <div class="collab rv">
+        <h2 data-i="collabH"></h2>
+        <p class="sub" data-i="collabP"></p>
+        <div class="tags"><span data-i="t1"></span><span data-i="t2"></span><span data-i="t3"></span><span data-i="t4"></span><span data-i="t5"></span></div>
+        <a class="btn cyan" data-link="collaborationUrl" target="_blank" rel="noopener" data-i="collabBtn"></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="info">
+    <div class="wrap">
+      <div class="card event-card rv">
+        <span class="big">ICC 2026</span>
+        <span class="d" data-i="infoDate"></span>
+        <span data-i="infoName"></span>
+        <span class="v" id="venue"></span>
+        <span class="v" data-i="infoGuest"></span>
+        <div class="btns"><a class="btn sm" data-link="venueUrl" target="_blank" rel="noopener" data-i="mapBtn"></a><button class="btn sm" type="button" id="copyBtn" data-i="copyBtn"></button></div>
+      </div>
+      <div class="card host rv">
+        <small data-i="hostL"></small>
+        <strong>Indonesia Comic Convention</strong>
+        <p class="v" data-i="hostP"></p>
+        <div class="btns" id="hostBtns"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="tag">CREATE. CAPTURE. CONNECT.</div>
+    <p>ICC 2026</p>
+    <div class="fl" id="footLinks"></div>
+    <p id="copy"></p>
+    <p data-i="made"></p>
+  </div>
+</footer>
+
+<div class="bar">
+  <a class="btn primary" href="#photo" data-i="ctaPhoto"></a>
+  <a class="btn cyan" href="#giveaway" data-i="barGive"></a>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ============ 4. JAVASCRIPT ============ -->
+<script>
+/* ---- EDIT ME: configurable values ---- */
+const CONFIG = {
+  websiteUrl: "[WEBSITE_URL]",   // the URL your QR code points to
+  photographer1: { name: "Rillianto Kosuwandi", handle: "@rkosuwandi", instagram: "https://www.instagram.com/rkosuwandi/", whatsapp: "6287887895988" },
+  photographer2: { name: "Boy Valentyas", handle: "@aceblanc.toujo", instagram: "https://www.instagram.com/aceblanc.toujo/", whatsapp: "6289636306541" },
+  organizer: { name: "Indonesia Comic Convention", handle: "@indocomiccon", instagram: "https://www.instagram.com/indocomiccon/",
+    tags: [["#ICC2026", "icc2026"], ["#ADecadeOfPopCulture", "adecadeofpopculture"]] },
+  giveawayUrl: "[GOOGLE_FORM_URL]",
+  photoGalleryUrl: "[PHOTO_GALLERY_URL]",
+  collaborationUrl: "[COLLAB_FORM_URL]",
+  venue: "JIEXPO Kemayoran — Hall & EXPO Arena, 1st Floor",
+  venueUrl: "https://maps.app.goo.gl/f9ahday8wLkpSYHP7",
+  extras: { tiktok: "", youtube: "", threads: "" },   // shown only when filled
+  images: { hero: "", photographer1: "assets/photographer1.jpg", photographer2: "assets/boy.jpg" }
+};
+
+/* ---- All visible text, EN + ID ---- */
+const TEXT = {
+en: {
+ skip:"Skip to content", nCreators:"Creators", nPhoto:"Photos", nGive:"Giveaway", nConn:"Connect", nCollab:"Collab", nInfo:"Event",
+ rec:"Photo activation live", heroDesc:"Photography, cosplay, creativity and new connections.", heroDate:"03 OCTOBER 2026",
+ heroGuest:"Guest photographer on Day 1 only (3 Oct)", ctaPhoto:"📸 GET YOUR PHOTO", ctaGive:"🎁 JOIN THE GIVEAWAY", barGive:"🎁 GIVEAWAY",
+ creatorsH:"Meet the creators", creatorsP:"The people behind the camera.",
+ role1:"Guest Photographer — ICC 2026, 3rd Oct only", role2:"Photographer / Creative",
+ desc1:"Capturing the characters, costumes and energy of ICC 2026 one frame at a time.", desc2:"Turning convention moments into portraits worth keeping and sharing.",
+ whyA:"We're here to capture your ", whyB:"ICC moments.",
+ whyP:"If you see us around ICC 2026, come say hi. Whether you're a cosplayer, creator, model, photographer, or simply here to enjoy the event — let's create something memorable.",
+ f1:"Get photographed", f2:"Join the giveaway", f3:"Let's collaborate",
+ photoH:"Did we photograph you?", photoP:"Your ICC 2026 photos may be coming soon.", photoBtn:"📸 FIND MY PHOTO", photoNote:"Photo gallery will be updated after the event.",
+ giveH:"🎁 ICC 2026 Giveaway", giveQ:"Want to win something from us?", giveP:"Join our giveaway for a chance to win a special prize from us.",
+ s1:"Follow", s1d:"Follow both Instagram accounts.", s2:"Register", s2d:"Complete the giveaway form.",
+ s3:"Share", s3d:"Share your ICC 2026 experience on Instagram Story and tag us and @indocomiccon.",
+ giveBtn:"JOIN THE GIVEAWAY", giveNote:"Giveaway terms may apply.",
+ connH:"Let's connect", connP:"Follow our work and stay connected after ICC.",
+ collabH:"Let's create something together.", collabP:"We're open to connecting with cosplayers, models, content creators, photographers, artists and brands for future creative projects.",
+ t1:"COSPLAY", t2:"MODEL", t3:"CONTENT CREATOR", t4:"PHOTOGRAPHER", t5:"BRAND", collabBtn:"🤝 I'M INTERESTED IN COLLABORATING",
+ infoDate:"ICC runs 3–4 Oct 2026", infoName:"Indonesia Comic Convention", infoGuest:"Our activation: 3 Oct 2026 (guest photographer on Day 1 only)",
+ mapBtn:"Open venue map", copyBtn:"Copy page link", copied:"Link copied!", unset:"This link hasn't been set yet.",
+ hostL:"Proudly at", hostP:"Thank you to the organizer for giving us the space to create.", hostBtn:"Follow @indocomiccon",
+ made:"Made for ICC 2026", metaDesc:"Photography, cosplay and creative collaboration at Indonesia Comic Convention 2026.",
+ wa1:"Hey! I visited your booth at ICC 2026 and I'd love to connect.", wa2:"Hi! Let's connect."
+},
+id: {
+ skip:"Lewati ke konten", nCreators:"Kreator", nPhoto:"Foto", nGive:"Giveaway", nConn:"Terhubung", nCollab:"Kolaborasi", nInfo:"Acara",
+ rec:"Aktivasi foto sedang berlangsung", heroDesc:"Fotografi, cosplay, kreativitas, dan koneksi baru.", heroDate:"03 OKTOBER 2026",
+ heroGuest:"Fotografer tamu hanya di hari pertama (3 Okt)", ctaPhoto:"📸 AMBIL FOTOMU", ctaGive:"🎁 IKUTAN GIVEAWAY", barGive:"🎁 GIVEAWAY",
+ creatorsH:"Kenali kreatornya", creatorsP:"Orang-orang di balik kamera.",
+ role1:"Fotografer Tamu — ICC 2026, hanya 3 Okt", role2:"Fotografer / Kreatif",
+ desc1:"Mengabadikan karakter, kostum, dan energi ICC 2026 satu frame demi satu frame.", desc2:"Mengubah momen convention jadi potret yang layak disimpan dan dibagikan.",
+ whyA:"Kami hadir untuk mengabadikan ", whyB:"momen ICC-mu.",
+ whyP:"Kalau ketemu kami di ICC 2026, sapa aja ya. Entah kamu cosplayer, kreator, model, fotografer, atau cuma mau menikmati acaranya — yuk bikin sesuatu yang berkesan.",
+ f1:"Difoto kami", f2:"Ikut giveaway", f3:"Yuk kolaborasi",
+ photoH:"Sudah kami foto?", photoP:"Foto ICC 2026-mu mungkin segera hadir.", photoBtn:"📸 CARI FOTOKU", photoNote:"Galeri foto akan diperbarui setelah acara.",
+ giveH:"🎁 Giveaway ICC 2026", giveQ:"Mau menang hadiah dari kami?", giveP:"Ikuti giveaway kami untuk berkesempatan memenangkan hadiah spesial dari kami.",
+ s1:"Follow", s1d:"Follow kedua akun Instagram kami.", s2:"Daftar", s2d:"Isi formulir giveaway.",
+ s3:"Bagikan", s3d:"Bagikan pengalaman ICC 2026-mu di Instagram Story dan tag kami serta @indocomiccon.",
+ giveBtn:"IKUTAN GIVEAWAY", giveNote:"Syarat dan ketentuan giveaway berlaku.",
+ connH:"Yuk terhubung", connP:"Ikuti karya kami dan tetap terhubung setelah ICC.",
+ collabH:"Yuk berkarya bersama.", collabP:"Kami terbuka untuk terhubung dengan cosplayer, model, content creator, fotografer, seniman, dan brand untuk proyek kreatif ke depan.",
+ t1:"COSPLAY", t2:"MODEL", t3:"KONTEN KREATOR", t4:"FOTOGRAFER", t5:"BRAND", collabBtn:"🤝 AKU TERTARIK BERKOLABORASI",
+ infoDate:"ICC berlangsung 3–4 Okt 2026", infoName:"Indonesia Comic Convention", infoGuest:"Aktivasi kami: 3 Okt 2026 (fotografer tamu hanya di hari pertama)",
+ mapBtn:"Buka peta venue", copyBtn:"Salin link halaman", copied:"Link disalin!", unset:"Link ini belum diatur.",
+ hostL:"Hadir di", hostP:"Terima kasih kepada penyelenggara atas ruang untuk berkarya.", hostBtn:"Ikuti @indocomiccon",
+ made:"Dibuat untuk ICC 2026", metaDesc:"Fotografi, cosplay, dan kolaborasi kreatif di Indonesia Comic Convention 2026.",
+ wa1:"Hai! Aku habis mampir ke booth kamu di ICC 2026 dan pengen kenalan.", wa2:"Hai! Yuk kenalan."
+}};
+
+const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#2a1a44'/><stop offset='1' stop-color='#0f2a36'/></linearGradient></defs><rect width='800' height='1000' fill='url(#g)'/><circle cx='400' cy='400' r='120' fill='none' stroke='#ff5fa2' stroke-width='10'/><circle cx='400' cy='400' r='34' fill='#60e0ff'/><text x='400' y='700' fill='#a9a4b5' font-family='sans-serif' font-size='34' text-anchor='middle'>PHOTO PLACEHOLDER</text></svg>");
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const isReal = u => /^https?:\/\//i.test(u) && !/[\[\]]/.test(u);
+let lang = "en";
+const t = k => TEXT[lang][k];
+
+function toast(m) { const e = $("#toast"); e.textContent = m; e.classList.add("show"); clearTimeout(toast.id); toast.id = setTimeout(() => e.classList.remove("show"), 2600); }
+function setLink(el, url) {
+  el.href = url; el.onclick = isReal(url) ? null : ev => { ev.preventDefault(); toast(t("unset")); };
+}
+
+function apply() {
+  const C = CONFIG, p1 = C.photographer1, p2 = C.photographer2, org = C.organizer;
+  document.documentElement.lang = lang;
+  $('meta[name=description]').content = t("metaDesc");
+  $$("[data-i]").forEach(el => el.textContent = t(el.dataset.i));
+  $$("[data-l]").forEach(el => el.classList.toggle("on", el.dataset.l === lang));
+  $("#duo").textContent = `${p1.name} × ${p2.name}`;
+  $("#n1").textContent = p1.name; $("#n2").textContent = p2.name;
+  $("#img1").alt = p1.name; $("#img2").alt = p2.name;
+  $("#venue").textContent = C.venue;
+  $("#copy").textContent = `© 2026 ${p1.name} × ${p2.name}`;
+  const wa = (p, k) => `https://wa.me/${p.whatsapp}?text=${encodeURIComponent(t(k))}`;
+  setLink($("#ig1"), p1.instagram); setLink($("#ig2"), p2.instagram);
+  setLink($("#wa1"), wa(p1, "wa1")); setLink($("#wa2"), wa(p2, "wa2"));
+  $$("[data-link]").forEach(el => setLink(el, C[el.dataset.link]));
+
+  const cards = [
+    ["Instagram", p1.name, p1.instagram, "ig"], ["Instagram", p2.name, p2.instagram, "ig"],
+    ["WhatsApp", p1.name, wa(p1, "wa1"), "wa"], ["WhatsApp", p2.name, wa(p2, "wa2"), "wa"],
+    ...Object.entries(C.extras).filter(([, u]) => u).map(([k, u]) => [k[0].toUpperCase() + k.slice(1), "", u, "pf"])
+  ];
+  $("#socialGrid").innerHTML = cards.map(c => `<a class="card soc ${c[3]} rv in" href="${c[2]}" target="_blank" rel="noopener"><div><small>${c[0]}</small><strong>${c[1]}</strong></div><span class="go" aria-hidden="true">↗</span></a>`).join("");
+  $("#footLinks").innerHTML = [[p1.instagram, "Instagram · " + p1.name], [p2.instagram, "Instagram · " + p2.name], [org.instagram, "Instagram · " + org.handle]]
+    .map(l => `<a class="btn sm" href="${l[0]}" target="_blank" rel="noopener">${l[1]}</a>`).join("");
+  $("#hostBtns").innerHTML = `<a class="btn primary sm" href="${org.instagram}" target="_blank" rel="noopener">${t("hostBtn")}</a>` +
+    org.tags.map(([label, slug]) => `<a class="btn sm" href="https://www.instagram.com/explore/tags/${slug}/" target="_blank" rel="noopener">${label}</a>`).join("");
+  $$("#socialGrid a,#footLinks a,#hostBtns a").forEach(a => { if (!isReal(a.getAttribute("href"))) setLink(a, a.getAttribute("href")); });
+}
+
+function setLang(l) {
+  lang = l; try { localStorage.setItem("lang", l); } catch (e) {}
+  apply();
+}
+try { lang = localStorage.getItem("lang") || ""; } catch (e) { lang = ""; }
+if (!TEXT[lang]) lang = (navigator.language || "en").toLowerCase().startsWith("id") ? "id" : "en";
+$("#langBtn").addEventListener("click", () => setLang(lang === "en" ? "id" : "en"));
+
+/* Images */
+[["#img1", CONFIG.images.photographer1], ["#img2", CONFIG.images.photographer2]].forEach(([id, src]) => {
+  const img = $(id); img.onerror = () => { img.onerror = null; img.src = PLACEHOLDER; }; img.src = src || PLACEHOLDER;
+});
+$("#heroBg").style.backgroundImage = CONFIG.images.hero ? `url("${CONFIG.images.hero}")`
+  : "radial-gradient(90% 60% at 20% 10%, rgba(139,108,255,.35), transparent 60%), radial-gradient(70% 50% at 90% 40%, rgba(255,95,162,.25), transparent 60%)";
+apply();
+
+/* Mobile menu */
+const menuBtn = $("#menuBtn"), links = $("#links");
+const setMenu = o => { links.classList.toggle("open", o); menuBtn.setAttribute("aria-expanded", o); };
+menuBtn.addEventListener("click", () => setMenu(!links.classList.contains("open")));
+links.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
+
+/* Scroll reveal */
+if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$(".rv").forEach(el => io.observe(el));
+} else $$(".rv").forEach(el => el.classList.add("in"));
+
+/* Active nav */
+const so = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) $$(".links a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+}), { rootMargin: "-45% 0px -50% 0px" });
+$$("main section[id]").forEach(s => so.observe(s));
+
+/* Copy link */
+$("#copyBtn").addEventListener("click", async () => {
+  const url = isReal(CONFIG.websiteUrl) ? CONFIG.websiteUrl : location.href;
+  try { await navigator.clipboard.writeText(url); toast(t("copied")); } catch { prompt("Copy:", url); }
+});
+</script>
+</body>
+</html>
